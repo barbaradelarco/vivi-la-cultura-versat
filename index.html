@@ -89,12 +89,25 @@
   <div id="ground"></div>
 
   <div id="question">
-    <div id="card">
-      <h2>¿Qué representa la cultura Versat en el día a día?</h2>
-      <p>La forma en que trabajamos, decidimos y nos relacionamos.</p>
-      <button onclick="closeQuestion()">Continuar</button>
-    </div>
+  <div id="card">
+    <h2>¿Qué representa la cultura Versat en el día a día?</h2>
+
+    <button onclick="answer(false)">
+      A) Un conjunto de reglas rígidas
+    </button>
+
+    <button onclick="answer(true)">
+      B) La forma en que trabajamos, decidimos y nos relacionamos
+    </button>
+
+    <button onclick="answer(false)">
+      C) Solo la imagen visual de la empresa
+    </button>
+
+    <p id="feedback" style="margin-top:15px;"></p>
   </div>
+</div>
+
 </div>
 
 <script>
@@ -152,6 +165,21 @@
   }
 
   update();
+</script>
+<script>
+  function answer(correct) {
+    const feedback = document.getElementById("feedback");
+
+    if (correct) {
+      feedback.innerText = "✅ ¡Correcto! Muy bien.";
+      setTimeout(() => {
+        closeQuestion();
+        feedback.innerText = "";
+      }, 1000);
+    } else {
+      feedback.innerText = "❌ No es así. Intentá de nuevo.";
+    }
+  }
 </script>
 
 </body>
