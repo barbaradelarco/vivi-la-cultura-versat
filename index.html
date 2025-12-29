@@ -229,7 +229,13 @@ const phases = [
 ];
 
 /* ===== ESTADO ===== */
-let phase = 0;
+const keys = {
+  left: false,
+  right: false,
+  up: false
+};
+
+  let phase = 0;
 let x = 40, y = 60, vy = 0;
 let onGround = true;
 let questionOpen = false;
@@ -246,13 +252,18 @@ const npcs = document.querySelectorAll(".npc");
 
 /* ===== CONTROLES ===== */
 document.addEventListener("keydown", e => {
-  if (question.style.display === "flex") return;
+  if (e.key === "ArrowLeft") keys.left = true;
+  if (e.key === "ArrowRight") keys.right = true;
+  if (e.key === "ArrowUp") keys.up = true;
+});
 
-  if (e.key === "ArrowRight") x += 10;
-  if (e.key === "ArrowLeft") x -= 10;
-  if (e.key === "ArrowUp" && onGround) {
-    vy = 16;
-    onGround = false;
+document.addEventListener("keyup", e => {
+  if (e.key === "ArrowLeft") keys.left = false;
+  if (e.key === "ArrowRight") keys.right = false;
+  if (e.key === "ArrowUp") keys.up = false;
+
+  if (!keys.left && !keys.right) {
+    player.classList.remove("walk");
   }
 });
 
@@ -269,6 +280,22 @@ function update() {
 
   player.style.left = x + "px";
   player.style.bottom = y + "px";
+// movimento horizontal
+if (keys.right) {
+  x += 5;
+  player.classList.add("walk");
+}
+
+if (keys.left) {
+  x -= 5;
+  player.classList.add("walk");
+}
+
+// pulo
+if (keys.up && onGround) {
+  vy = 16;
+  onGround = false;
+}
 
   checkDoor();
   checkNPC();
