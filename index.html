@@ -6,120 +6,45 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 <style>
-  body {
-    margin: 0;
-    background: linear-gradient(180deg, #2C3E50, #1f2a36);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    font-family: Arial, sans-serif;
-    color: #2C3E50;
-  }
+body {
+  margin: 0;
+  background: linear-gradient(180deg, #2C3E50, #1f2a36);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-family: Arial, sans-serif;
+}
 
-  #game {
-    position: relative;
-    width: 960px;
-    height: 540px;
-    background: linear-gradient(180deg, #f5f7fa, #e4e8ec);
-    overflow: hidden;
-    border-radius: 16px;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-  }
+#game {
+  position: relative;
+  width: 960px;
+  height: 540px;
+  background: linear-gradient(180deg, #f5f7fa, #e4e8ec);
+  overflow: hidden;
+  border-radius: 16px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+}
 
-  #hud {
-    position: absolute;
-    top: 10px;
-    left: 20px;
-    font-weight: bold;
-  }
+#hud {
+  position: absolute;
+  top: 10px;
+  left: 20px;
+  font-weight: bold;
+}
 
-  /* PERSONAGEM = V */
-  #player {
-    position: absolute;
-    width: 50px;
-    height: 70px;
-    left: 40px;
-    bottom: 60px;
-    font-size: 64px;
-    font-weight: 900;
-    color: #00CF74;
-    line-height: 70px;
-    text-align: center;
-    user-select: none;
-  }
-
-  .platform {
-    position: absolute;
-    background: #2C3E50;
-    border-radius: 8px;
-  }
-
-  #ground {
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 40px;
-  }
-
-  #door {
-    position: absolute;
-    width: 60px;
-    height: 90px;
-    right: 40px;
-    bottom: 40px;
-    background: linear-gradient(180deg, #145BB3, #0e3f80);
-    border-radius: 10px;
-    box-shadow: 0 0 15px rgba(20,91,179,0.6);
-  }
-
-  /* PERGUNTA */
-  #question {
-    position: absolute;
-    inset: 0;
-    background: rgba(0,0,0,0.7);
-    display: none;
-    justify-content: center;
-    align-items: center;
-  }
-
-  #card {
-    background: white;
-    padding: 30px;
-    width: 70%;
-    border-radius: 16px;
-    text-align: center;
-  }
-
-  #card h2 {
-    margin-top: 0;
-  }
-
-  #card button {
-    display: block;
-    width: 100%;
-    margin: 10px 0;
-    padding: 14px;
-    font-size: 16px;
-    background: #00CF74;
-    border: none;
-    color: white;
-    cursor: pointer;
-    border-radius: 8px;
-    text-align: left;
-  }
-
-  #card button:hover {
-    opacity: 0.9;
-  }
-
-  #feedback {
-    margin-top: 10px;
-    font-weight: bold;
-  }
-  /* ANIMAÇÃO DO PLAYER */
 #player {
-  transition: left 0.1s linear;
+  position: absolute;
+  width: 50px;
+  height: 70px;
+  left: 40px;
+  bottom: 60px;
+  font-size: 64px;
+  font-weight: 900;
+  color: #00CF74;
+  line-height: 70px;
+  text-align: center;
+  user-select: none;
 }
 
 .walk {
@@ -131,18 +56,26 @@
   to { transform: translateY(-4px); }
 }
 
-/* NPCs */
-.npc {
+.platform {
   position: absolute;
-  width: 40px;
-  height: 60px;
-  background: #e74c3c;
-  border-radius: 10px;
-  bottom: 40px;
+  background: #2C3E50;
 }
 
-/* Porta animada */
+#ground {
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 40px;
+}
+
 #door {
+  position: absolute;
+  width: 60px;
+  height: 90px;
+  right: 40px;
+  bottom: 40px;
+  background: linear-gradient(180deg, #145BB3, #0e3f80);
+  border-radius: 10px;
   animation: glow 1.5s infinite alternate;
 }
 
@@ -151,18 +84,80 @@
   to { box-shadow: 0 0 25px rgba(20,91,179,0.9); }
 }
 
+.npc {
+  position: absolute;
+  width: 40px;
+  height: 60px;
+  background: #e74c3c;
+  border-radius: 8px;
+  bottom: 40px;
+}
+
+#question {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+
+#card {
+  background: white;
+  padding: 30px;
+  width: 70%;
+  border-radius: 16px;
+  text-align: center;
+}
+
+#card button {
+  display: block;
+  width: 100%;
+  margin: 10px 0;
+  padding: 14px;
+  background: #00CF74;
+  border: none;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: left;
+}
+
+.hit {
+  animation: hitFlash 0.3s;
+}
+
+@keyframes hitFlash {
+  0% { background: rgba(231,76,60,0.6); }
+  100% { background: transparent; }
+}
+
+.shake {
+  animation: shake 0.3s;
+}
+
+@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-6px); }
+  50% { transform: translateX(6px); }
+  75% { transform: translateX(-6px); }
+  100% { transform: translateX(0); }
+}
 </style>
 </head>
 
 <body>
 
 <div id="game">
-  <div id="hud">Fase 1 / 6</div>
+  <div id="hud">
+    Fase <span id="phaseNum">1</span> / 6 | Vidas: <span id="lives">3</span>
+  </div>
 
   <div id="player">V</div>
   <div id="door"></div>
+
   <div class="npc" style="left:300px;"></div>
-<div class="npc" style="left:520px;"></div>
+  <div class="npc" style="left:520px;"></div>
 
   <div id="ground" class="platform"></div>
 
@@ -176,211 +171,192 @@
 </div>
 
 <script>
-/* ===== DADOS DAS FASES ===== */
 const phases = [
-  {
-    q: "¿Qué representa la cultura Versat en el día a día?",
-    a: [
-      { t: "Un manual estático sin impacto", c: false },
-      { t: "La forma en que trabajamos, decidimos y nos relacionamos", c: true },
-      { t: "Solo la identidad visual", c: false }
-    ]
-  },
-  {
-    q: "¿Para qué sirve el Culture Code?",
-    a: [
-      { t: "Para alinear comportamientos y decisiones", c: true },
-      { t: "Para controlar tareas individuales", c: false },
-      { t: "Para uso exclusivo del liderazgo", c: false }
-    ]
-  },
-  {
-    q: "La cultura Versat se vive principalmente…",
-    a: [
-      { t: "En el día a día de cada persona", c: true },
-      { t: "Solo en eventos corporativos", c: false },
-      { t: "En documentos internos", c: false }
-    ]
-  },
-  {
-    q: "¿Quién es responsable de la cultura Versat?",
-    a: [
-      { t: "El área de RRHH", c: false },
-      { t: "Cada persona del equipo", c: true },
-      { t: "Solo los líderes", c: false }
-    ]
-  },
-  {
-    q: "La cultura Versat ayuda principalmente a…",
-    a: [
-      { t: "Tomar mejores decisiones", c: true },
-      { t: "Reducir la comunicación", c: false },
-      { t: "Evitar cambios", c: false }
-    ]
-  },
-  {
-    q: "Vivir la cultura Versat significa…",
-    a: [
-      { t: "Actuar con coherencia y compromiso", c: true },
-      { t: "Seguir reglas sin cuestionar", c: false },
-      { t: "Priorizar resultados sin valores", c: false }
-    ]
-  }
+  { q:"¿Qué representa la cultura Versat?", a:[
+    {t:"Un manual rígido",c:false},
+    {t:"Cómo trabajamos y decidimos",c:true},
+    {t:"Solo la marca",c:false}
+  ]},
+  { q:"¿Para qué sirve el Culture Code?", a:[
+    {t:"Alinear decisiones",c:true},
+    {t:"Controlar personas",c:false},
+    {t:"Uso exclusivo del liderazgo",c:false}
+  ]},
+  { q:"La cultura se vive…", a:[
+    {t:"En el día a día",c:true},
+    {t:"En eventos",c:false},
+    {t:"En documentos",c:false}
+  ]},
+  { q:"¿Quién es responsable?", a:[
+    {t:"RRHH",c:false},
+    {t:"Todas las personas",c:true},
+    {t:"Solo líderes",c:false}
+  ]},
+  { q:"La cultura ayuda a…", a:[
+    {t:"Tomar mejores decisiones",c:true},
+    {t:"Evitar cambios",c:false},
+    {t:"Reducir comunicación",c:false}
+  ]},
+  { q:"Vivir la cultura es…", a:[
+    {t:"Actuar con coherencia",c:true},
+    {t:"Seguir reglas ciegamente",c:false},
+    {t:"Priorizar resultados",c:false}
+  ]}
 ];
 
-/* ===== ESTADO ===== */
-const keys = {
-  left: false,
-  right: false,
-  up: false
-};
-
-  let phase = 0;
-let x = 40, y = 60, vy = 0;
-let onGround = true;
-let questionOpen = false;
-
-
+const game = document.getElementById("game");
 const player = document.getElementById("player");
 const door = document.getElementById("door");
 const question = document.getElementById("question");
 const qText = document.getElementById("qText");
 const options = document.getElementById("options");
 const feedback = document.getElementById("feedback");
-const hud = document.getElementById("hud");
-const npcs = document.querySelectorAll(".npc");
+const phaseNumEl = document.getElementById("phaseNum");
+const livesEl = document.getElementById("lives");
 
-/* ===== CONTROLES ===== */
-document.addEventListener("keydown", e => {
-  if (e.key === "ArrowLeft") keys.left = true;
-  if (e.key === "ArrowRight") keys.right = true;
-  if (e.key === "ArrowUp") keys.up = true;
+let phase = 0;
+let lives = 3;
+let x = 40, y = 60, vy = 0;
+let onGround = true;
+let questionOpen = false;
+let hitCooldown = false;
+
+const keys = { left:false, right:false, up:false };
+
+const npcs = Array.from(document.querySelectorAll(".npc")).map(npc => ({
+  el: npc,
+  x: parseInt(npc.style.left),
+  start: parseInt(npc.style.left) - 80,
+  end: parseInt(npc.style.left) + 80,
+  speed: 1.2,
+  dir: 1
+}));
+
+document.addEventListener("keydown", e=>{
+  if(e.key==="ArrowLeft") keys.left=true;
+  if(e.key==="ArrowRight") keys.right=true;
+  if(e.key==="ArrowUp") keys.up=true;
 });
 
-document.addEventListener("keyup", e => {
-  if (e.key === "ArrowLeft") keys.left = false;
-  if (e.key === "ArrowRight") keys.right = false;
-  if (e.key === "ArrowUp") keys.up = false;
-
-  if (!keys.left && !keys.right) {
-    player.classList.remove("walk");
-  }
+document.addEventListener("keyup", e=>{
+  if(e.key==="ArrowLeft") keys.left=false;
+  if(e.key==="ArrowRight") keys.right=false;
+  if(e.key==="ArrowUp") keys.up=false;
+  if(!keys.left&&!keys.right) player.classList.remove("walk");
 });
 
-/* ===== LOOP ===== */
-function update() {
-  vy -= 1;
-  y += vy;
+function update(){
+  if(keys.right){ x+=5; player.classList.add("walk"); }
+  if(keys.left){ x-=5; player.classList.add("walk"); }
 
-  if (y <= 60) {
-    y = 60;
-    vy = 0;
-    onGround = true;
+  if(keys.up && onGround){
+    vy=16; onGround=false;
   }
 
-  player.style.left = x + "px";
-  player.style.bottom = y + "px";
-// movimento horizontal
-if (keys.right) {
-  x += 5;
-  player.classList.add("walk");
-}
+  vy-=1; y+=vy;
+  if(y<=60){ y=60; vy=0; onGround=true; }
 
-if (keys.left) {
-  x -= 5;
-  player.classList.add("walk");
-}
+  player.style.left=x+"px";
+  player.style.bottom=y+"px";
 
-// pulo
-if (keys.up && onGround) {
-  vy = 16;
-  onGround = false;
-}
-
-  checkDoor();
+  moveNPCs();
   checkNPC();
-  
+  checkDoor();
+
   requestAnimationFrame(update);
 }
 
-/* ===== COLISÃO COM PORTA ===== */
-function checkDoor() {
-  if (questionOpen) return;
-
-  const p = player.getBoundingClientRect();
-  const d = door.getBoundingClientRect();
-
-  if (
-    p.right > d.left &&
-    p.left < d.right &&
-    p.bottom > d.top &&
-    p.top < d.bottom
-  ) {
-    questionOpen = true;
-    openQuestion();
-  }
+function moveNPCs(){
+  npcs.forEach(npc=>{
+    npc.x+=npc.speed*npc.dir;
+    if(npc.x>=npc.end||npc.x<=npc.start) npc.dir*=-1;
+    npc.el.style.left=npc.x+"px";
+  });
 }
-function checkNPC() {
-  const p = player.getBoundingClientRect();
 
-  npcs.forEach(npc => {
-    const n = npc.getBoundingClientRect();
-
-    if (
-      p.right > n.left &&
-      p.left < n.right &&
-      p.bottom > n.top &&
-      p.top < n.bottom
-    ) {
-      // volta ao início da fase
-      x = 40;
-      y = 60;
-      player.classList.remove("walk");
+function checkNPC(){
+  if(hitCooldown) return;
+  const p=player.getBoundingClientRect();
+  npcs.forEach(npc=>{
+    const n=npc.el.getBoundingClientRect();
+    if(p.right>n.left&&p.left<n.right&&p.bottom>n.top&&p.top<n.bottom){
+      handleHit();
     }
   });
 }
 
-/* ===== PERGUNTA ===== */
-function openQuestion() {
-  question.style.display = "flex";
-  hud.innerText = `Fase ${phase + 1} / 6`;
-  feedback.innerText = "";
+function handleHit(){
+  hitCooldown=true;
+  lives--; livesEl.innerText=lives;
+  game.classList.add("shake");
+  player.classList.add("hit");
 
-  qText.innerText = phases[phase].q;
-  options.innerHTML = "";
+  setTimeout(()=>{
+    game.classList.remove("shake");
+    player.classList.remove("hit");
+    hitCooldown=false;
+  },300);
 
-  phases[phase].a.sort(() => Math.random() - 0.5);
+  x=40; y=60; vy=0; onGround=true;
 
-  phases[phase].a.forEach(opt => {
-    const btn = document.createElement("button");
-    btn.innerText = opt.t;
-    btn.onclick = () => answer(opt.c);
-    options.appendChild(btn);
+  if(lives<=0){
+    alert("😵 Sin vidas. Reiniciamos.");
+    resetGame();
+  }
+}
+
+function checkDoor(){
+  if(questionOpen) return;
+  const p=player.getBoundingClientRect();
+  const d=door.getBoundingClientRect();
+  if(p.right>d.left&&p.left<d.right&&p.bottom>d.top&&p.top<d.bottom){
+    questionOpen=true;
+    openQuestion();
+  }
+}
+
+function openQuestion(){
+  question.style.display="flex";
+  feedback.innerText="";
+  qText.innerText=phases[phase].q;
+  options.innerHTML="";
+  phases[phase].a.sort(()=>Math.random()-0.5);
+  phases[phase].a.forEach(opt=>{
+    const b=document.createElement("button");
+    b.innerText=opt.t;
+    b.onclick=()=>answer(opt.c);
+    options.appendChild(b);
   });
 }
 
-
-function answer(correct) {
-  if (correct) {
-    feedback.innerText = "✅ ¡Correcto!";
-    setTimeout(nextPhase, 800);
+function answer(correct){
+  if(correct){
+    feedback.innerText="✅ ¡Correcto!";
+    setTimeout(nextPhase,700);
   } else {
-    feedback.innerText = "❌ No es así. Intentá de nuevo.";
+    feedback.innerText="❌ Intentá de nuevo.";
   }
 }
 
-function nextPhase() {
-  question.style.display = "none";
+function nextPhase(){
+  question.style.display="none";
   phase++;
-  questionOpen = false;
-
-  if (phase >= phases.length) {
-    alert("🎉 ¡Completaste las 6 fases! Vivís la cultura Versat.");
-    phase = 0;
+  questionOpen=false;
+  if(phase>=phases.length){
+    alert("🎉 ¡Completaste el juego!");
+    resetGame();
   }
+  phaseNumEl.innerText=phase+1;
+  x=40;
+}
 
-  x = 40;
-  hud.innerText = `Fase ${phase + 1} / 6`;
+function resetGame(){
+  phase=0;
+  lives=3;
+  phaseNumEl.innerText=1;
+  livesEl.innerText=3;
+  x=40; y=60; vy=0;
+  questionOpen=false;
 }
 
 update();
@@ -388,4 +364,3 @@ update();
 
 </body>
 </html>
-
