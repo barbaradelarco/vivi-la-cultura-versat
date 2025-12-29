@@ -117,6 +117,40 @@
     margin-top: 10px;
     font-weight: bold;
   }
+  /* ANIMAÇÃO DO PLAYER */
+#player {
+  transition: left 0.1s linear;
+}
+
+.walk {
+  animation: walk 0.4s infinite alternate;
+}
+
+@keyframes walk {
+  from { transform: translateY(0); }
+  to { transform: translateY(-4px); }
+}
+
+/* NPCs */
+.npc {
+  position: absolute;
+  width: 40px;
+  height: 60px;
+  background: #e74c3c;
+  border-radius: 10px;
+  bottom: 40px;
+}
+
+/* Porta animada */
+#door {
+  animation: glow 1.5s infinite alternate;
+}
+
+@keyframes glow {
+  from { box-shadow: 0 0 10px rgba(20,91,179,0.4); }
+  to { box-shadow: 0 0 25px rgba(20,91,179,0.9); }
+}
+
 </style>
 </head>
 
@@ -127,6 +161,8 @@
 
   <div id="player">V</div>
   <div id="door"></div>
+  <div class="npc" style="left:300px;"></div>
+<div class="npc" style="left:520px;"></div>
 
   <div id="ground" class="platform"></div>
 
@@ -206,6 +242,7 @@ const qText = document.getElementById("qText");
 const options = document.getElementById("options");
 const feedback = document.getElementById("feedback");
 const hud = document.getElementById("hud");
+const npcs = document.querySelectorAll(".npc");
 
 /* ===== CONTROLES ===== */
 document.addEventListener("keydown", e => {
@@ -234,6 +271,8 @@ function update() {
   player.style.bottom = y + "px";
 
   checkDoor();
+  checkNPC();
+  
   requestAnimationFrame(update);
 }
 
@@ -253,6 +292,25 @@ function checkDoor() {
     questionOpen = true;
     openQuestion();
   }
+}
+function checkNPC() {
+  const p = player.getBoundingClientRect();
+
+  npcs.forEach(npc => {
+    const n = npc.getBoundingClientRect();
+
+    if (
+      p.right > n.left &&
+      p.left < n.right &&
+      p.bottom > n.top &&
+      p.top < n.bottom
+    ) {
+      // volta ao início da fase
+      x = 40;
+      y = 60;
+      player.classList.remove("walk");
+    }
+  });
 }
 
 /* ===== PERGUNTA ===== */
